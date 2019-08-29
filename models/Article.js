@@ -15,6 +15,7 @@ const ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    // should note be an array?
     note: {
         type: Schema.Types.ObjectId,
         ref: "Note"
