@@ -80,8 +80,20 @@ const BlogPost = new Schema({
 - heroku addons:create mongolab
 - This command will add the free mLab provision to your project.
 
-### Methods
+### Notes
 
 jQuery.getJSON(url[,data][,success])
 
 - load JSON encoded data from the server using a GET HTTP request
+
+[\$.getJSON() documentation](https://api.jquery.com/jQuery.getJSON/)
+
+target each article by assigning unique attributes
+
+[data attribute](https://api.jquery.com/data/)
+
+Using target="\_blank" in html
+
+- Add rel="noopener" or rel="noreferrer" to each of the links that Lighthouse has identified in your report. In general, when you use target="\_blank", always add rel="noopener" or rel="noreferrer".
+
+[how to use target="\_blank"](https://developers.google.com/web/tools/lighthouse/audits/noopener)
