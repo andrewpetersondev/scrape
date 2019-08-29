@@ -6,11 +6,29 @@ Week 18
 
 ### NPM Packages
 
-express
-express-handlebars
-mongoose
-cheerio
 axios
+
+- promise based http client for the browser and node.js
+
+cheerio
+
+- cheerio parses markup and provides an API for traversing/manipulating the resulting data structure. It does not interpret the result as a web browser does. Specifically, it does not produce a visual rendering, apply CSS, load external resources, or execute JavaScript.
+
+express
+
+- fast, unopinionated, minimalist web framework for node.
+
+express-handlebars
+
+- handlebars view engine for express
+
+mongoose
+
+- mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+
+morgan
+
+- morgan is a http request logger middleware for node.js
 
 ### Deployment with Heroku
 
