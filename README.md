@@ -4,25 +4,31 @@ Week 18
 
 ## Configuration
 
-### NPM Packages
+### NPM PACKAGES
 
-#### axios
+#### AXIOS
 
 - promise based http client for the browser and node.js
 
-#### cheerio
+#### CHEERIO
 
 - cheerio parses markup and provides an API for traversing/manipulating the resulting data structure. It does not interpret the result as a web browser does. Specifically, it does not produce a visual rendering, apply CSS, load external resources, or execute JavaScript.
 
-#### express
+#### EXPRESS
 
 - fast, unopinionated, minimalist web framework for node.
 
-#### express-handlebars
+#### EXPRESS-HANDLEBARS
 
 - handlebars view engine for express
 
-#### mongoose
+#### MONGOOSE
+
+[mongoose documentation](https://mongoosejs.com/)
+
+[Read this Article](https://www.freecodecamp.org/news/introduction-to-mongoose-for-mongodb-d2a7aa593c57/)
+
+[npm](https://www.npmjs.com/package/mongoose)
 
 ##### FAQ
 
@@ -32,7 +38,7 @@ A. Mongoose is a MongoDB object modeling tool designed to work in an asynchronou
 
 Q. Why use mongoose?
 
-A. Mongoose allows ...
+A. Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB. MongoDB is a schema-less NoSQL document database. It means you can store JSON documents in it, and the structure of these documents can vary as it is not enforced like SQL databases. This is one of the advantages of using NoSQL as it speeds up application development and reduces the complexity of deployments.
 
 Q. What is the name of the database this app is using?
 
