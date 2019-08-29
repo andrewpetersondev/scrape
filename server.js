@@ -1,49 +1,76 @@
-// dependencies
+// dependencies and packages
 // ======================================================================
-
 const axios = require("axios");
 const cheerio = require("cheerio");
+const db = require("./models");
 const express = require("express");
 const exphbs = require("express-handlebars");
-const mongoose = require("mongoose");
 const morgan = require("morgan");
-const db = require("./models");
+const mongoose = require("mongoose");
 
 // configuration and middleware
-// ======================================================================
-
 const PORT = process.env.PORT || 3000;
 const app = express();
-app.use(morgan("dev")); // use morgan to log results
-app.use(express.urlencoded({ extended: true })); // parse request body as json
-app.use(express.json()); // parse request body as json
-app.use(express.static("public")); // make a public static folder
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
-mongoose.connect('mongodb://localhost/mongoHeadlines', { useNewUrlParser: true });
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
+// app.use("/public", express.static(__dirname + "/public"));
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // routes
 // ======================================================================
 
-// route to get the homepage
+// route to get the homepage, simultaneously displaying content from db if there is any
 app.get("/", function (req, res) {
-    // res.json(path.join(__dirname, "public/index.html"));
-    res.render('index');
+    Article.find({})
+        .sort()
+    // res.render('index');
 });
 
-// route to scrape daily hodl
+// route to scrape tech crunch
 app.get("/scrape", function (req, res) {
-    axios
-        .get("http://www.echojs.com/")
+
+    axios.get("https://techcrunch.com/")
+
         .then(function (response) {
-            // console.log(response);
-            let $ = cheerio.load(response.data);
-            $("article h2").each(function (i, element) {
-                let result = {};
-                result.title = $(this).children("a").text();
-                result.link = $(this).children("a").attr("href");
-                // result.topic = $(this).children()
-                // console.log(result);
+
+            console.log(response);
+
+            // If you need to modify parsing options for XML input, you may pass an extra object to .load():
+            const $ = cheerio.load(response.data, {
+                xml: {
+                    normalizeWhitespace: true,
+                }
+            });
+
+            $("article").each(function (i, element) {
+
+                const result = {};
+
+                result.title = $(this)
+                    .children("header")
+                    .children("h2")
+                    .children("a")
+                    .text();
+
+                result.link = $(this)
+                    .children("header")
+                    .children("h2")
+                    .children("a")
+                    .attr("href");
+
+                result.summary = $(this)
+                    .children("div")
+                    .children("p")
+                    .text();
+
+                console.log(result);
+
                 db.Article
                     .create(result)
                     .then(function (dbArticle) {
@@ -104,6 +131,4 @@ app.post("/articles/:id", function (req, res) {
 
 // start the server
 // ======================================================================
-app.listen(PORT, function () {
-    console.log("App running on port " + PORT + "!\n");
-});
+app.listen(PORT, () => console.log(`Example app listening on PORT ${PORT}!`))
