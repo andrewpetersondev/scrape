@@ -18,6 +18,8 @@ app.use(morgan("dev")); // use morgan to log results
 app.use(express.urlencoded({ extended: true })); // parse request body as json
 app.use(express.json()); // parse request body as json
 app.use(express.static("public")); // make a public static folder
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 mongoose.connect('mongodb://localhost/mongoHeadlines', { useNewUrlParser: true });
 
 // routes
@@ -25,7 +27,8 @@ mongoose.connect('mongodb://localhost/mongoHeadlines', { useNewUrlParser: true }
 
 // route to get the homepage
 app.get("/", function (req, res) {
-    res.json(path.join(__dirname, "public/index.html"));
+    // res.json(path.join(__dirname, "public/index.html"));
+    res.render('index');
 });
 
 // route to scrape daily hodl
