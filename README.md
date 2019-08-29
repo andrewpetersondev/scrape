@@ -79,3 +79,9 @@ const BlogPost = new Schema({
 - Run this command in your Terminal/Bash window:
 - heroku addons:create mongolab
 - This command will add the free mLab provision to your project.
+
+### Methods
+
+jQuery.getJSON(url[,data][,success])
+
+- load JSON encoded data from the server using a GET HTTP request

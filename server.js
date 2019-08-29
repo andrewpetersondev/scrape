@@ -25,14 +25,9 @@ app.get("/", function (req, res) {
 
 // route to scrape daily hodl
 app.get("/scrape", function (req, res) {
-    axios.get("https://dailyhodl.com/")
+    axios.get("http://www.echojs.com/")
         .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-        .finally(function () {
+            // console.log(response);
             console.log("axios request executed");
             console.log("cheerio is about to be executed");
             let $ = cheerio.load(response.data);
@@ -42,16 +37,40 @@ app.get("/scrape", function (req, res) {
                 result.title = $(this).children("a").text();
                 result.link = $(this).children("a").attr("href");
                 // result.topic = $(this).children()
+                // console.log(result);
+                // create new article using the result object built from scraping
+                db.Article.create(result)
+                    .then(function (dbArticle) {
+                        console.log(dbArticle);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             })
-            // create new article using the result object built from scraping
-            db.Article.create(result)
-                .then(function (dbArticle) {
-                    console.log(dbArticle);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        });
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    // .finally(function () {
+    //     console.log("axios request executed");
+    //     console.log("cheerio is about to be executed");
+    //     let $ = cheerio.load(response.data);
+    //     // grab the desired content
+    //     $("article h2").each(function (i, element) {
+    //         let result = {};
+    //         result.title = $(this).children("a").text();
+    //         result.link = $(this).children("a").attr("href");
+    //         // result.topic = $(this).children()
+    //     })
+    //     // create new article using the result object built from scraping
+    //     db.Article.create(result)
+    //         .then(function (dbArticle) {
+    //             console.log(dbArticle);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // });
     // Send a message to the client
     res.send("Scrape Complete");
 });
