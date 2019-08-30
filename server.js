@@ -62,8 +62,10 @@ app.get("/scrape", function (req, res) {
                     normalizeWhitespace: true,
                 }
             });
+
+            const result = {};
             $("div.post-block").each(function (i, element) {
-                const results = {};
+
                 result.title = $(this)
                     .children("header")
                     .children("h2")
@@ -78,7 +80,7 @@ app.get("/scrape", function (req, res) {
                     .children("div.post-block__content")
                     .text();
 
-                console.log(results);
+                console.log(result);
 
                 // Save these results in an object that we'll push into the results array we defined earlier
                 // result.push({
@@ -88,7 +90,7 @@ app.get("/scrape", function (req, res) {
                 // });
 
                 db.Article
-                    .create(results)
+                    .create(result)
                     .then(function (dbArticle) {
                         console.log(dbArticle);
                         res.json(dbArticle);
