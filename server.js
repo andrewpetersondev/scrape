@@ -89,22 +89,21 @@ app.get("/scrape", function (req, res) {
                 //     summary: summary
                 // });
 
-                db.Article
-                    .create(result)
+                // Create a new Article using the `result` object built from scraping
+                db.Article.create(result)
                     .then(function (dbArticle) {
+                        // View the added result in the console
                         console.log(dbArticle);
-                        res.json(dbArticle);
                     })
-                    .catch(function (error) {
-                        console.log(error);
+                    .catch(function (err) {
+                        // If an error occurred, log it
+                        console.log(err);
                     });
-            })
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-    // .finally(function () { });
-    res.send("Scrape Complete");
+            });
+
+            // Send a message to the client
+            res.send("Scrape Complete");
+        });
 });
 
 // route for getting all articles from the db
