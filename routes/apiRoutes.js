@@ -1,12 +1,15 @@
+// packages
+// ================================================================
+const express = require("express");
+const router = express.Router();
 const axios = require("axios");
 const cheerio = require("cheerio");
+
+// require all models
 const db = require("../models");
-const express = require("express");
+
+// initialize express
 const app = express();
-const router = express.Router();
-const db = require("../models/index");
-
-
 
 // route to get the homepage, simultaneously displaying content from db if there is any
 router.get("/", function (req, res) {

@@ -1,0 +1,40 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">Mongo Scraper</h1>
+        <p class="lead">News Edition</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <section id="article-container">
+            <!-- insert cards here -->
+
+            {{#each articles}}
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">
+                        <a href="{{this.link}}" target="_blank">{{this.title}}</a>
+                    </span>
+
+                </div>
+                <div class="card-body">
+                    <p>{{this.summary}}</p>
+                    <div class="card-action">
+                        {{#if this.saved}}
+                        <a href="#" class="btn">saved article</a>
+                        {{else}}
+                        <form method="POST" action="/save/index/{{this._id}}">
+                            <input type="hidden" name="saved" value="true">
+                            <button type="submit" class="btn">save
+                                article</button>
+                        </form>
+                        {{/if}}
+                    </div>
+                </div>
+
+            </div>
+            {{/each}}
+        </section>
+    </div>
+</div>

@@ -19,6 +19,10 @@ const ArticleSchema = new Schema({
     note: {
         type: Schema.Types.ObjectId,
         ref: "Note"
+    },
+    saved: {
+        type: Boolean,
+        default: false
     }
 });
 
